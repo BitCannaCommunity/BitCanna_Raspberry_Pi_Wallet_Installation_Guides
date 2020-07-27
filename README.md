@@ -1,5 +1,5 @@
-# BitCanna-Raspberry-Pi-Wallet
-BitCanna Raspberry Pi Wallet
+# BitCanna Raspberry Pi Wallet Installation Guide
+BitCanna Raspberry Pi Wallet Installation Guide
 
 WARNING!
 
