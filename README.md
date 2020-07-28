@@ -28,4 +28,8 @@ After the initial setup of your RaspberryPi you will need to tweek it a little b
 
 5 - Exit the Pi configuration tool and select yes when it asks to reboot.
 
-6 - 
+6 - Update RPi with -> sudo apt-get update && sudo apt-get upgrade -y 
+
+7 - Install some dependencies
+
+ 
