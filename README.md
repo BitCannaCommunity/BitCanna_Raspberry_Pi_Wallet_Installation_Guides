@@ -78,11 +78,66 @@ https://www.boost.org/doc/libs/1_57_0/more/getting_started/unix-variants.html#th
 
 5.3 - enter boost folder (need to change boost folder permisition)
 
-cd ./boost_1_57_0 && sudo sudo ./bootstrap.sh --with-libraries=all && sudo ./b2 install
-
-
-
+cd ./boost_1_57_0 && sudo sudo ./bootstrap.sh --with-libraries=all && sudo ./b2 install && cd
 
 6 - Install some dependencies
 
- 
+sudo apt-get install -y build-essential autoconf automake libtool libssl-dev qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default
+
+7 - Install working libssl
+
+sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
+
+8 - Change file to look like this:
+
+#deb http://ftp.debian.org/debian/ buster main contrib non-free
+#deb http://security.debian.org/ buster/updates main contrib non-free
+#deb http://ftp.debian.org/debian/ buster-updates main contrib non-free
+
+deb http://ftp.debian.org/debian/ jessie main contrib non-free
+deb http://security.debian.org/ jessie/updates main contrib non-free
+deb http://ftp.debian.org/debian/ jessie-updates main contrib non-free
+
+# Uncomment lines below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://ftp.debian.org/debian/ buster main contrib non-free
+#deb-src http://security.debian.org/ buster/updates main contrib non-free
+#deb-src http://ftp.debian.org/debian/ buster-updates main contrib non-free
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching "deb cdrom"
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
+
+9 - press: "ctrl+x" and then "Y" and "Enter"
+
+10 - run command -> sudo apt-get update && sudo apt-get install libssl-dev && sudo apt-mark hold libssl-dev && sudo apt-mark hold libssl1.0.0 && sudo nano /etc/apt/sources.list
+
+11 - Change file to look like this:
+
+deb http://ftp.debian.org/debian/ buster main contrib non-free
+deb http://security.debian.org/ buster/updates main contrib non-free
+deb http://ftp.debian.org/debian/ buster-updates main contrib non-free
+
+#deb http://ftp.debian.org/debian/ jessie main contrib non-free
+#deb http://security.debian.org/ jessie/updates main contrib non-free
+#deb http://ftp.debian.org/debian/ jessie-updates main contrib non-free
+
+# Uncomment lines below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://ftp.debian.org/debian/ buster main contrib non-free
+#deb-src http://security.debian.org/ buster/updates main contrib non-free
+#deb-src http://ftp.debian.org/debian/ buster-updates main contrib non-free
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching "deb cdrom"
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.
+
+12 - press: "ctrl+x" and then "Y" and "Enter"
+
+13 - run command -> sudo apt-get update && sudo apt-get upgrade -y
+
+14 - Install some necessary extra stuff (ZeroMQ Packages, libsodium, Zero MQ itself - https://github.com/MonsieurV/ZeroMQ-RPi)
+
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0.3.tar.gz && tar -zxvf libsodium-1.0.3.tar.gz && rm libsodium-1.0.3.tar.gz && cd libsodium-1.0.3/ && ./configure && make && sudo make install && cd && wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && cd zeromq-4.3.2/ && ./configure && make && sudo make install && sudo ldconfig 
