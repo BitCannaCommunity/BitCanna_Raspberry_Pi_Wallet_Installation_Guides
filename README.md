@@ -56,11 +56,11 @@ After the initial setup of your RaspberryPi you will need to tweek it a little b
 
 3.1 - Install the follwoing dependencies -> sudo apt-get --fix-broken install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 
-3.2 - Install Webmin with -> wget http://prdownloads.sourceforge.net/webadmin/webmin_1.953_all.deb && sudo dpkg --install webmin_1.953_all.deb
+3.2 - Install Webmin with -> wget http://prdownloads.sourceforge.net/webadmin/webmin_1.953_all.deb && sudo dpkg --install webmin_1.953_all.deb && rm ./webmin_1.953_all.deb
 
 3.3 - Install iptables -> sudo apt-get install iptables
 
-3.4 - Add Firewall rule to open port 1000 with -> -A INPUT -p tcp -m tcp --dport 10000 -j ACCEPT
+3.4 - Add Firewall rule to open port 1000 with -> sudo iptables -A INPUT -p tcp -m tcp --dport 10000 -j ACCEPT
 
 3.5 - Save changes with -> sudo /sbin/iptables-save
 
@@ -74,17 +74,15 @@ https://www.boost.org/doc/libs/1_57_0/more/getting_started/unix-variants.html#th
 
 5.1 - Download with -> wget https://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.gz
 
-5.2 - Extract with -> tar -xzvf ./boost_1_57_0.tar.gz && rm ./boost_1_57_0.tar.gz
+5.2 - Extract with -> tar -xzvf ./boost_1_57_0.tar.gz && rm ./boost_1_57_0.tar.gz && sudo chmod -R a+rwx ./boost_1_57_0
 
-5.3 - enter boost folder (need to change boost folder permisition)
-
-cd ./boost_1_57_0 && sudo sudo ./bootstrap.sh --with-libraries=all && sudo ./b2 install && cd
+5.3 - enter boost folder and compile + install -> cd ./boost_1_57_0 && sudo sudo ./bootstrap.sh --with-libraries=all && sudo ./b2 install && cd ./
 
 6 - Install some dependencies
 
 sudo apt-get install -y build-essential autoconf automake libtool libssl-dev qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default
 
-7 - Install working libssl
+7 - Install a working libssl
 
 sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
 
@@ -111,7 +109,7 @@ deb http://ftp.debian.org/debian/ jessie-updates main contrib non-free
 
 9 - press: "ctrl+x" and then "Y" and "Enter"
 
-10 - run command -> sudo apt-get update && sudo apt-get install libssl-dev && sudo apt-mark hold libssl-dev && sudo apt-mark hold libssl1.0.0 && sudo nano /etc/apt/sources.list
+10 - run command -> sudo apt-get update && sudo apt-get install -y libssl-dev && sudo apt-mark hold libssl-dev && sudo apt-mark hold libssl1.0.0 && sudo nano /etc/apt/sources.list
 
 11 - Change file to look like this:
 
@@ -140,4 +138,20 @@ deb http://ftp.debian.org/debian/ buster-updates main contrib non-free
 
 14 - Install some necessary extra stuff (ZeroMQ Packages, libsodium, Zero MQ itself - https://github.com/MonsieurV/ZeroMQ-RPi)
 
-wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0.3.tar.gz && tar -zxvf libsodium-1.0.3.tar.gz && rm libsodium-1.0.3.tar.gz && cd libsodium-1.0.3/ && ./configure && make && sudo make install && cd && wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && cd zeromq-4.3.2/ && ./configure && make && sudo make install && sudo ldconfig 
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0.3.tar.gz && tar -zxvf libsodium-1.0.3.tar.gz && rm libsodium-1.0.3.tar.gz && sudo chmod -R a+rwx ./libsodium-1.0.3 && cd libsodium-1.0.3/ && ./configure && make && sudo make install && cd && wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && sudo chmod -R a+rwx ./zeromq-4.3.2 && cd zeromq-4.3.2/ && ./configure && make && sudo make install && sudo ldconfig 
+
+
+COMPILING AND INSTALLING BERKELEY DB 4.8 
+
+1.	Download the Berkeley DB, uncompress it, and cd into the uncompressed directory:
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-4.8.30.NC.tar.gz && rm db-4.8.30.NC.tar.gz && sudo chmod -R a+rwx ./db-4.8.30 && sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h && cd db-4.8.30.NC/build_unix/
+
+2.	Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install Berkeley DB
+sudo ../dist/configure --enable-cxx && make && sudo make install
+
+
+
+git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx ./BCNA && cd BCNA/
+
+
+./autogen.sh && LIBS="-lboost_atomic" ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" && make 
