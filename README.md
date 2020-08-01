@@ -130,11 +130,11 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 9.1 - Download the libsodium, uncompress it, and cd into the uncompressed directory
 
-wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0.3.tar.gz && tar -zxvf libsodium-1.0.3.tar.gz && rm libsodium-1.0.3.tar.gz && sudo chmod -R a+rwx ./libsodium-1.0.3 && cd libsodium-1.0.3/ 
+wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0.3.tar.gz && tar -zxvf libsodium-1.0.3.tar.gz && rm libsodium-1.0.3.tar.gz && sudo chmod -R a+rwx libsodium-1.0.3/ && cd libsodium-1.0.3/ 
 
 9.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install libsodium
 
-./configure && make && sudo make install 
+./configure && make -j2 && sudo make install 
 
 9.3 Exit folder
 
@@ -180,4 +180,6 @@ sudo nano /home/pi/BCNA/src/net.h
 
 ./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
 
+13 - Run Wallet with QT GUI
 
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt
