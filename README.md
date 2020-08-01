@@ -148,7 +148,7 @@ wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.
 
 10.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install ZeroMQ
 
-./configure && make && sudo make install && sudo ldconfig 
+./configure && make -j2 && sudo make install && sudo ldconfig 
 
 11 - Compiling and Installing Berkeley DB 4.8
 
@@ -158,7 +158,7 @@ wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-
 
 11.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install Berkeley DB
 
-sudo ../dist/configure --enable-cxx && make && sudo make install
+sudo ../dist/configure --enable-cxx && make -j2 && sudo make install
 
 12 - Compiling and Installing BitCanna Wallet
 
