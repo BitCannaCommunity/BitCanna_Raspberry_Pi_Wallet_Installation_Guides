@@ -104,7 +104,7 @@ sudo apt-get install -y build-essential autoconf automake libtool libssl-dev qt4
 
 7.1 - Remove current libssl and edit RPi sources file
 
-sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
+sudo apt-get remove -y libssl-dev && sudo nano /etc/apt/sources.list
 
 7.2 - Change "buster" to "jessie" 
 
