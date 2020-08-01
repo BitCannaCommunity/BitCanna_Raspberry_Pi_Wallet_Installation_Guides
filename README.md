@@ -98,13 +98,18 @@ cd
 
 6 - Install some dependencies
 
-sudo apt-get install -y build-essential autoconf automake libtool libssl-dev qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default
+sudo apt-get install -y build-essential autoconf automake libtool libssl-dev 
+
+(or libbz2-dev libssl1.0-dev libasio-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libboost-atomic1.58* libboost-chrono1.58* libboost-context1.58* libboost-coroutine1.58* libboost-date-time1.58* libboost-exception1.58* libboost-filesystem1.58* libboost-graph-parallel1.58* libboost-graph1.58* libboost-iostreams1.58* libboost-locale1.58* libboost-log1.58* libboost-math1.58* libboost-mpi-python1.58* libboost-mpi1.58* libboost-program-options1.58* libboost-python1.58* libboost-random1.58* libboost-regex1.58* libboost-serialization1.58* libboost-signals1.58* libboost-system1.58* libboost-test1.58* libboost-thread1.58* libboost-timer1.58* libboost-wave1.58* libboost1.58* RPi ) 
+
+
+qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default
 
 7 - Install a working libssl
 
 7.1 - Remove current libssl and edit RPi sources file
 
-sudo apt-get remove -y libssl-dev && sudo nano /etc/apt/sources.list
+sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
 
 7.2 - Change "buster" to "jessie" 
 
@@ -144,27 +149,35 @@ cd
 
 10.1 - Download the ZeroMQ, uncompress it, and cd into the uncompressed directory
 
-wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && sudo chmod -R a+rwx zeromq-4.3.2/ && cd zeromq-4.3.2/
+wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && sudo chmod -R a+rwx zeromq-4.3.2/ && cd zeromq-4.3.2/ 
 
 10.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install ZeroMQ
 
 ./configure && make -j2 && sudo make install && sudo ldconfig 
 
+10.3 - Exit folder 
+
+cd
+
 11 - Compiling and Installing Berkeley DB 4.8
 
 11.1 - Download the Berkeley DB, uncompress it, and cd into the uncompressed directory 
 
-wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-4.8.30.NC.tar.gz && rm db-4.8.30.NC.tar.gz && sudo chmod -R a+rwx ./db-4.8.30 && sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h && cd db-4.8.30.NC/build_unix/
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-4.8.30.NC.tar.gz && rm db-4.8.30.NC.tar.gz && sudo chmod -R a+rwx db-4.8.30.NC/ && sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h && cd db-4.8.30.NC/build_unix/
 
 11.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install Berkeley DB
 
 sudo ../dist/configure --enable-cxx && make -j2 && sudo make install
 
-12 - Compiling and Installing BitCanna Wallet
+11.3 - Exit folder
+
+cd
+
+12 - Compiling and Installing the BitCanna Wallet
 
 12.1 - clone the BitCanna GitHub, uncompress it, and cd into the directory
 
-git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx ./BCNA && cd BCNA/
+git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx BCNA/ && cd BCNA/
 
 12.2 - open and edit the following file 
 
@@ -178,7 +191,15 @@ sudo nano /home/pi/BCNA/src/net.h
 
 12.5 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install the BitCanna Wallet
 
-./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
+cd BCNA/ && ./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
+
+12.6 - Exit folder
+
+cd
+
+13 - Change permitions of teh folrders
+
+sudo chmod -R a+rwx /usr/local/bin/ && sudo mkdir /home/pi/.bitcanna && sudo chmod -R a+rwx /home/pi/.bitcanna/
 
 13 - Run Wallet with QT GUI
 
