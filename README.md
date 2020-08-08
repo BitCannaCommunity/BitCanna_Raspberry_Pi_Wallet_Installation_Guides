@@ -195,7 +195,7 @@ git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx BCNA
 
 sudo nano /home/pi/BCNA/src/net.h
 
-13.3 - add #include <atomic> at the end of the 1st include group
+13.3 - add "#include <atomic >" at the end of the 1st include group (without quotes and remove the sapce after the last c )
 
 13.4 - press
 
@@ -203,7 +203,7 @@ sudo nano /home/pi/BCNA/src/net.h
 
 13.5 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install the BitCanna Wallet
 
-cd BCNA/ && ./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
+./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
 
 13.6 - Exit folder
 
