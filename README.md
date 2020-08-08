@@ -86,7 +86,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 5.1 - Download the Boost Libraries, uncompress it, and cd into the uncompressed directory
 
-wget https://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.gz && tar -xzvf boost_1_57_0.tar.gz && rm boost_1_57_0.tar.gz && sudo chmod -R a+rwx boost_1_57_0/ && cd boost_1_57_0/ 
+wget https://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.gz && tar -xzvf boost_1_57_0.tar.gz && rm boost_1_57_0.tar.gz && sudo chmod -R a+rwx boost_1_57_0/ && cd boost_1_57_0/
 
 5.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install Boost Libraries
 
@@ -175,39 +175,49 @@ sudo ../dist/configure --enable-cxx && make -j2 && sudo make install
 
 cd
 
-12 - Compiling and Installing the BitCanna Wallet
+12 - Run the Boost Libraries installation again to complete intalling what was left from the 1st attempt (it's normal dont panic)
 
-12.1 - clone the BitCanna GitHub, uncompress it, and cd into the directory
+12.1 - use the command:
 
-git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx BCNA/ && cd BCNA/
+cd boost_1_57_0/ && sudo ./bootstrap.sh && sudo ./b2 install
 
-12.2 - open and edit the following file 
-
-sudo nano /home/pi/BCNA/src/net.h
-
-12.3 - add #include <atomic> at the end of the 1st include group
-
-12.4 - press
-
-"ctrl+x" > "Y" > "Enter"
-
-12.5 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install the BitCanna Wallet
-
-cd BCNA/ && ./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
-
-12.6 - Exit folder
+12.2 - Exit the folder
 
 cd
 
-13 - Change permitions of the folders:
+13 - Compiling and Installing the BitCanna Wallet
+
+13.1 - clone the BitCanna GitHub, uncompress it, and cd into the directory
+
+git clone https://github.com/BitCannaGlobal/BCNA.git && sudo chmod -R a+rwx BCNA/ && cd BCNA/
+
+13.2 - open and edit the following file 
+
+sudo nano /home/pi/BCNA/src/net.h
+
+13.3 - add #include <atomic> at the end of the 1st include group
+
+13.4 - press
+
+"ctrl+x" > "Y" > "Enter"
+
+13.5 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install the BitCanna Wallet
+
+cd BCNA/ && ./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
+
+13.6 - Exit folder
+
+cd
+
+14 - Change permitions of the folders:
 
 sudo chmod -R a+rwx /usr/local/bin/ && sudo mkdir /home/pi/.bitcanna && sudo chmod -R a+rwx /home/pi/.bitcanna/
 
-14 - Create bitcanna.conf
+15 - Create bitcanna.conf
 
 sudo nano /home/pi/.bitcanna/bitcanna.conf
 
-14.1 - Copy and past the code lines below
+15.1 - Copy and past the code lines below
 
 rpcuser=bitcannarpc
 rpcpassword=
@@ -219,107 +229,152 @@ maxconnections=1000
 staking=0
 enablezeromint=0
 banscore=50
+
 addnode=209.250.255.175:12888
+
 addnode=108.61.165.138:12888
+
 addnode=185.92.223.251:12888
+
 addnode=37.97.227.83:12907
+
 addnode=37.97.227.83:12888
+
 addnode=80.240.25.195:12888
+
 addnode=37.97.227.83:12905
+
 addnode=95.179.142.124:12888
+
 addnode=45.77.138.90:12888
+
 addnode=95.179.183.115:12888
+
 addnode=209.250.254.30:12888
+
 addnode=37.97.227.83:12889
+
 addnode=89.29.176.219:12888
+
 addnode=78.141.216.198:12888
+
 addnode=37.97.227.83:12901
+
 addnode=37.97.227.83:12890
+
 addnode=37.97.227.83:12891
+
 addnode=37.97.227.83:12902
+
 addnode=37.97.227.83:12903
+
 addnode=37.97.227.83:12893
+
 addnode=37.97.227.83:12894
+
 addnode=167.71.0.53:12888
+
 addnode=37.97.227.83:12895
+
 addnode=37.97.227.83:12896
+
 addnode=37.97.227.83:12897
+
 addnode=37.97.227.83:12906
+
 addnode=37.97.227.83:12898
+
 addnode=62.171.190.198:1288
+
 addnode=37.97.227.83:12900
+
 addnode=164.68.103.60:12888
+
 addnode=167.86.107.226:12888
+
 addnode=167.86.107.228:12888
+
 addnode=173.212.215.124:12888
+
 addnode=116.203.206.254:12888
+
 addnode=159.69.109.74:12888
+
 addnode=49.12.43.129:12888
+
 addnode=116.203.228.107:12888
+
 addnode=78.47.67.67:12888
+
 addnode=78.47.168.208:12888
+
 addnode=164.68.105.190:12888
+
 addnode=93.171.202.9:12888
+
 addnode=94.225.220.3:12888
+
 addnode=151.80.58.62:12888
+
 addnode=173.212.227.191:12888
 
-14.2 - press
+15.2 - press
 
 "ctrl+x" > "Y" > "Enter"
 
-14.3 - Run Wallet to get rpcpassword= info
+15.3 - Run Wallet to get rpcpassword= info
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt
 
-14.4 - Will crash with a warning message
+15.4 - Will crash with a warning message
 
-14.5 - Locate where says rpcpassword=SOME_WEIRD_PASSWORD
+15.5 - Locate where says rpcpassword=SOME_WEIRD_PASSWORD
 
-14.6 - Select and copy it with mouse
+15.6 - Select and copy it with mouse
 
-14.7 - Edit Create bitcanna.conf
+15.7 - Edit Create bitcanna.conf
 
 sudo nano /home/pi/.bitcanna/bitcanna.conf
 
-14.8 - Add the copied password to rpcpassword=
+15.8 - Add the copied password to rpcpassword=
 
-14.9 - press
+15.9 - press
 
 "ctrl+x" > "Y" > "Enter"
 
-15 - Download and "install" bootstrap to speed up initial syncronization of the wallet
+16 - Download and "install" bootstrap to speed up initial syncronization of the wallet
 
-cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v3/Bootstrap.09-06-2020.zip && unzip -xzvf Bootstrap.09-06-2020.zip && rm Bootstrap.09-06-2020.zip && && sudo chmod -R a+rwx /home/pi/.bitcanna/
+cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v3/Bootstrap.09-06-2020.zip && unzip -xzvf Bootstrap.09-06-2020.zip && rm Bootstrap.09-06-2020.zip && sudo chmod -R a+rwx /home/pi/.bitcanna/
 
-16 - Run and sync Wallet 1st time - I recomend doing the 1st initial sync (wit or without the bootstrap) using the CLI mode for a faster syncing process
+17 - Run and sync Wallet 1st time - I recomend doing the 1st initial sync (wit or without the bootstrap) using the CLI mode for a faster syncing process
 
-16.1 - Run wallet in its headless mode
+17.1 - Run wallet in its headless mode
 
-bitcannad
+bitcannad -dbcache=50 &
 
-16.2 - Check sync process using command
+17.2 - Check sync process using command
 
 bitcanna-cli getinfo
 
 Not necessary but can be handy
-16.3 - Create routine for autoupdate on sync process
+17.3 - Create routine for autoupdate on sync process
 
 while true; do bitcanna-cli getinfo; sleep 3; done
 
-17 - Wait for sync to finish 
+18 - Wait for sync to finish 
 
-18 - Once Sync is finish use wallet as normal by using the syntax
+19 - Once Sync is finish use wallet as normal by using the syntax
 
 bitcanna-cli WALLET_COMMAND
 
-19 - For Using the QT GUI Wallet
+20 - For Using the QT GUI Wallet
 
-19.1 - Stop the current wallet
+20.1 - Stop the current wallet
 
 kill all bitcannad
 
-19.2 - Run Wallet with QT GUI
+20.2 - Run Wallet with QT GUI
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt
 
+Have fun :)
