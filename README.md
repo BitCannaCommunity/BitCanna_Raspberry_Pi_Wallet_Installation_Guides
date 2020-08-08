@@ -80,7 +80,7 @@ sudo iptables -A INPUT -p tcp -m tcp --dport 10000 -j ACCEPT && sudo /sbin/iptab
 
 4 - Update and Upgrade the RPi 
 
-sudo apt-get update && sudo apt-get upgrade -y 
+sudo apt-get update && sudo apt-get full-upgrade -y 
 
 5 - Compiling and Installing Boost Libraries ver. 1.57
 
@@ -98,16 +98,21 @@ cd
 
 6 - Install some dependencies
 
-sudo apt-get install -y build-essential autoconf automake libtool libbz2-dev libssl-dev qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default
-
-(libasio-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev libboost-atomic1.58* libboost-chrono1.58* libboost-context1.58* libboost-coroutine1.58* libboost-date-time1.58* libboost-exception1.58* libboost-filesystem1.58* libboost-graph-parallel1.58* libboost-graph1.58* libboost-iostreams1.58* libboost-locale1.58* libboost-log1.58* libboost-math1.58* libboost-mpi-python1.58* libboost-mpi1.58* libboost-program-options1.58* libboost-python1.58* libboost-random1.58* libboost-regex1.58* libboost-serialization1.58* libboost-signals1.58* libboost-system1.58* libboost-test1.58* libboost-thread1.58* libboost-timer1.58* libboost-wave1.58* libboost1.58*) - still not sure if needed or not and if next step is to skip 
-
+sudo apt-get install build-essential autoconf automake libtool libbz2-dev libssl-dev qt4-qmake libqt4-dev libminiupnpc-dev libdb++-dev libdb-dev libcrypto++-dev ufw git software-properties-common autotools-dev pkg-config libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev automake g++-mingw-w64-x86-64 libevent-dev libgmp-dev devscripts libsodium-dev qt5-default -y
 
 7 - Install a working libssl (VM mode)
 
 7.1 - Remove current libssl and edit RPi sources file
 
-sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
+sudo apt-get remove libssl-dev -y && sudo nano /etc/apt/sources.list
+
+7.2 - Change "buster" to "jessie" 
+
+7.3 - Press
+
+"ctrl+x" > "Y" > "Enter"
+
+sudo nano /etc/apt/sources.list.d/raspi.list
 
 7.2 - Change "buster" to "jessie" 
 
@@ -119,15 +124,19 @@ sudo apt-get remove libssl-dev && sudo nano /etc/apt/sources.list
 
 sudo apt-get update && sudo apt-get install -y libssl-dev && sudo apt-mark hold libssl-dev && sudo apt-mark hold libssl1.0.0 && sudo nano /etc/apt/sources.list
 
-7.5 - Change "jessie" back to "buster"
+7.5 - Change "jessie"  to "stretch"
 
 7.6 - Press
 
 "ctrl+x" > "Y" > "Enter"
 
-7 - Install a working libssl (RPi mode)
+sudo nano /etc/apt/sources.list.d/raspi.list
 
-sudo apt-get install libssl1.0-dev -y
+7.2 - Change "jessie" to "stretch" 
+
+7.3 - Press
+
+"ctrl+x" > "Y" > "Enter"
 
 8 - Update and Upgrade RPi
 
@@ -141,7 +150,7 @@ wget https://github.com/jedisct1/libsodium/releases/download/1.0.3/libsodium-1.0
 
 9.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install libsodium
 
-./configure && make -j2 && sudo make install 
+./configure && make -j4 && sudo make install 
 
 9.3 Exit folder
 
@@ -151,11 +160,11 @@ cd
 
 10.1 - Download the ZeroMQ, uncompress it, and cd into the uncompressed directory
 
-wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && sudo chmod -R a+rwx zeromq-4.3.2/ && cd zeromq-4.3.2/ 
+wget https://github.com/zeromq/libzmq/releases/download/v4.3.2/zeromq-4.3.2.tar.gz && tar -zxvf zeromq-4.3.2.tar.gz && rm zeromq-4.3.2.tar.gz && sudo chmod -R a+rwx zeromq-4.3.2/ && cd zeromq-4.3.2/ &
 
 10.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install ZeroMQ
 
-./configure && make -j2 && sudo make install && sudo ldconfig 
+./configure && make -j4 && sudo make install && sudo ldconfig 
 
 10.3 - Exit folder 
 
@@ -165,11 +174,11 @@ cd
 
 11.1 - Download the Berkeley DB, uncompress it, and cd into the uncompressed directory 
 
-wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-4.8.30.NC.tar.gz && rm db-4.8.30.NC.tar.gz && sudo chmod -R a+rwx db-4.8.30.NC/ && sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h && cd db-4.8.30.NC/build_unix/
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && tar -xzvf db-4.8.30.NC.tar.gz && rm db-4.8.30.NC.tar.gz && sudo chmod -R a+rwx db-4.8.30.NC/ && sed -i 's/__atomic_compare_exchange/__atomic_compare_exchange_db/g' db-4.8.30.NC/dbinc/atomic.h && cd db-4.8.30.NC/build_unix/ 
 
 11.2 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install Berkeley DB
 
-sudo ../dist/configure --enable-cxx && make -j2 && sudo make install
+sudo ../dist/configure --enable-cxx && make -j4 && sudo make install
 
 11.3 - Exit folder
 
@@ -203,7 +212,7 @@ sudo nano /home/pi/BCNA/src/net.h
 
 13.5 - Then, configure the system for compiling, do the actual compile job with make (will take a good while), and then install the BitCanna Wallet
 
-./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j2 && sudo make install
+./autogen.sh && ./configure LIBS="-lboost_atomic" CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j4 && sudo make install
 
 13.6 - Exit folder
 
@@ -220,14 +229,23 @@ sudo nano /home/pi/.bitcanna/bitcanna.conf
 15.1 - Copy and past the code lines below
 
 rpcuser=bitcannarpc
+
 rpcpassword=
+
 listen=1
+
 server=1
+
 daemon=1
+
 txindex=1
+
 maxconnections=1000
+
 staking=0
+
 enablezeromint=0
+
 banscore=50
 
 addnode=209.250.255.175:12888
@@ -324,7 +342,7 @@ addnode=173.212.227.191:12888
 
 15.3 - Run Wallet to get rpcpassword= info
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcannad
 
 15.4 - Will crash with a warning message
 
@@ -344,13 +362,13 @@ sudo nano /home/pi/.bitcanna/bitcanna.conf
 
 16 - Download and "install" bootstrap to speed up initial syncronization of the wallet
 
-cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v3/Bootstrap.09-06-2020.zip && unzip -xzvf Bootstrap.09-06-2020.zip && rm Bootstrap.09-06-2020.zip && sudo chmod -R a+rwx /home/pi/.bitcanna/
+cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v3/Bootstrap.09-06-2020.zip && unzip Bootstrap.09-06-2020.zip && rm Bootstrap.09-06-2020.zip && sudo chmod -R a+rwx /home/pi/.bitcanna/
 
 17 - Run and sync Wallet 1st time - I recomend doing the 1st initial sync (wit or without the bootstrap) using the CLI mode for a faster syncing process
 
 17.1 - Run wallet in its headless mode
 
-bitcannad -dbcache=50 &
+bitcannad -dbcache=50
 
 17.2 - Check sync process using command
 
@@ -371,10 +389,14 @@ bitcanna-cli WALLET_COMMAND
 
 20.1 - Stop the current wallet
 
-kill all bitcannad
+bitcanna-cli stop
 
 20.2 - Run Wallet with QT GUI
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt
+bitcanna-qt -dbcache=50
 
 Have fun :)
+
+When running the wallet for the 1st time (either after install or after a reboot/shutdown) you need to you the following command before running the wallet, after that you can close and start the wallet as many times as you want using just the bitcann-qt or bitcanna-cli (cli only works after the bitcannd as been lauched)
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib"
