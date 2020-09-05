@@ -31,7 +31,7 @@ These instructions have been divided into 2 guides for the fact that despite bei
  ## Installation
  
  *   [Virtual Machine Installation Guide](https://github.com/JohnnyX89/Work_in_Process_BitCanna_Raspberry_Pi_Wallet/blob/master/VM_GUIDE.md)
- *   [Raspberry Pi Installation Guide](#raspberry-pi-installation-guide "Raspberry Pi Installation Guide")
+ *   [Raspberry Pi Installation Guide](https://github.com/JohnnyX89/Work_in_Process_BitCanna_Raspberry_Pi_Wallet/blob/master/RPI_GUIDE.md)
 
  ## Disclosure
 
