@@ -356,7 +356,7 @@ Now comes the fun part where you will do the magic trick of compiling and instal
 
         cd
 
- ## Run the BitCanna Full Node Wallet on RPi VM
+ ## Run the BitCanna Full Node Wallet on RPi
  
  After the bootstrap finishes download you can now run your wallet and start its synchronization process.
 
@@ -408,7 +408,7 @@ Look for the blocks information part to see it synchronizing:
 
  - Now simply wait for the synchronization process to finish.
 
- ## Running the BitCanna Full Node Wallet on the RPi VM
+ ## Running the BitCanna Full Node Wallet on the RPi
  
  - For the CLI Wallet mode simply use:
 
