@@ -5,7 +5,7 @@
 *   [Requirements](#requirements "Requirements")
 *   [Important](#important "Important")
 *   [Installation](#installation "Installation")
-*   [Disclosure](#desclosure "Desclosure")
+*   [Disclosure](#disclosure "Disclosure")
 *   [Buy BCNA](#buy-bcna "Buy BCNA")
 *   [Feedback](#feedback "Feedback")
 *   [Support and Donating](#support-and-donating "Support and Donating")
@@ -51,7 +51,7 @@ If you need or want to buy BCNA you can do it using the links below:
 
 Any improvements or suggestions to be added feel free to do it either through here or by telegram using the link -> https://t.me/Johnny_X89
  
- ## Support & and Donating
+ ## Support and Donating
  
 If you found these guides useful and you fell like it feel free to donate any tips to support and improve it:
 
