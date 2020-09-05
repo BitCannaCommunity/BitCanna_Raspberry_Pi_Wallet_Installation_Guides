@@ -94,19 +94,19 @@ The next steps will follow the official guides from raspberrypi.org (https://www
  - Building the Kernel
      - Start by installing git and some dependencies
 
-        sudo apt-get install git bc bison flex libssl-dev make -y
+             sudo apt-get install git bc bison flex libssl-dev make -y
 
      - Clone the Kernel github repository
 
-        git clone --depth=1 https://github.com/raspberrypi/linux && sudo chmod -R a+rwx linux/
+            git clone --depth=1 https://github.com/raspberrypi/linux && sudo chmod -R a+rwx linux/
 
      - Configure the Kernel for building
 
-        cd linux && KERNEL=kernel7 && make bcm2709_defconfig
+            cd linux && KERNEL=kernel7 && make bcm2709_defconfig
 
      - Build the Kernel
 
-        make -j4 zImage modules dtbs && sudo make modules_install && sudo cp arch/arm/boot/dts/*.dtb /boot/ && sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/ && sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/ && sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
+           make -j4 zImage modules dtbs && sudo make modules_install && sudo cp arch/arm/boot/dts/*.dtb /boot/ && sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/ && sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/ && sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
 
 (note: even with the -j 4 input the Kernel Building is a process that will take a while to complete, about 2h, so get something else to do while the RPi does it job)
 
