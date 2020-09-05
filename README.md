@@ -12,7 +12,7 @@
 
  ## What is it? 
 
-This are 2 Guides that were created to help those among the BitCanna Community interested to run their Full Node Wallets(*) using a Raspberry Pi.
+These are 2 Guides that were created to help those among the BitCanna Community interested to run their Full Node Wallets(*) using a Raspberry Pi.
 
 *The possibility to use it as a Masternode is still to be tested.
 
