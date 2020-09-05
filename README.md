@@ -1,4 +1,4 @@
-+![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/qjUSrrd.png)  
+![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/qjUSrrd.png)  
 # BitCanna Raspberry Pi Wallet Installation Guides
 
 *   [What is it?](#what-is-it "What is it?")
