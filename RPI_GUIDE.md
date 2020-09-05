@@ -112,7 +112,7 @@ The next steps will follow the official guides from raspberrypi.org (https://www
 
    - Once it is finished exit the folder with:
 
-        cd
+           cd
 
  - Install “some” dependencies:
 
@@ -289,7 +289,7 @@ Now comes the fun part where you will do the magic trick of compiling and instal
 
         ./autogen.sh && ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default && make -j4 && sudo make install
 
-                    (this will take a while to complete even with the -j4 input so feel free to roll one (or more) and enjoy it/them)
+(note: this will take a while to complete even with the -j4 input so feel free to roll one (or more) and enjoy it/them)
 
  - Once it is finished exit the folder with:
 
