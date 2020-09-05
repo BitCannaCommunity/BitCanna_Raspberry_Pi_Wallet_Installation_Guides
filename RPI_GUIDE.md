@@ -110,7 +110,7 @@ The next steps will follow the official guides from raspberrypi.org (https://www
 
 (note: even with the -j 4 input the Kernel Building is a process that will take a while to complete, about 2h, so get something else to do while the RPi does it job)
 
-     - Once it is finished exit the folder with:
+   - Once it is finished exit the folder with:
 
         cd
 
