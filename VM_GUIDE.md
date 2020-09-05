@@ -19,7 +19,7 @@
         *   [Setting up the BitCanna Wallet for the 1st time](#setting-up-the-bitcanna-wallet-for-the-1st-time "Setting up the BitCanna Wallet for the 1st time")
         *   [Run the BitCanna Full Node Wallet on RPi VM](#run-the-bitcanna-full-node-wallet-on-rpi-vm "Run the BitCanna Full Node Wallet on RPi VM")
 *   [Running the BitCanna Full Node Wallet on the RPi VM](#running-the-bitcanna-full-node-wallet-on-the-rpi-vm "Running the BitCanna Full Node Wallet on the RPi VM")
-*   [Disclosure](#desclosure "Desclosure")
+*   [Disclosure](#disclosure "Disclosure")
 *   [Buy BCNA](#buy-bcna "Buy BCNA")
 *   [Feedback](#feedback "Feedback")
 *   [Support and Donating](#support-and-donating "Support and Donating")
@@ -302,13 +302,13 @@ To continue we will need to remove the currently installed libssl and force inst
 
         cd boost_1_57_0/ && sudo ./bootstrap.sh && sudo ./b2 install
 
-if you remember you had previously ended the installation with a final message saying:
+If you remember you had previously ended the installation with a final message saying:
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/JS3zRHJ.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/JS3zRHJ.jpg)
 
 Which makes 8 target that were not initially updated, and if you now received a message like following one, means that the previous 8 missing targets have now been successfully updated:
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/b3v2sZ9.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/b3v2sZ9.jpg)
 
  - Once it is finished exit the folder with:
 
@@ -373,7 +373,7 @@ Now comes the fun part where you will do the magic trick of compiling and instal
 
    - Exit the file with ctrl+x  
    - Confirm the changes saving with Y
-   - nd confirm with Enter 
+   - And confirm with Enter 
 
  - Run the wallet for the 1st time to get the information needed for the rpcpassword= in the bitcann.conf file
 
@@ -433,7 +433,7 @@ I will leave the instructions for both, so it is entirely up to you to decide wh
 
 (To be sure that is running the synchronization from the bootstrap you will see a message on the synchronization bar saying Importing blocks from disk…) 
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/WFPvgE8.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/WFPvgE8.jpg)
 
  - For the CLI environment synchronization start by using the following chain of commands to start the wallet:
 
@@ -441,7 +441,7 @@ I will leave the instructions for both, so it is entirely up to you to decide wh
 
 (You should see a message saying BCNA server starting)
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/9wBPSdH.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/9wBPSdH.jpg)
 
    - Check the syncing process with the command:
 
@@ -449,13 +449,13 @@ I will leave the instructions for both, so it is entirely up to you to decide wh
 
 Look for the blocks information part to see it synchronizing:
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/QG9cruJ.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/QG9cruJ.jpg)
 
    - If you want, you can create a loop routine of the getinfo command to see an “auto-update” of the synchronization process while in the CLI environment:
 
           while true; do bitcanna-cli getinfo; sleep 3; done
 
-    ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/UuPH4PS.jpg)
+   ![BitCannaRaspberryPiWalletInstallationGuides](https://i.imgur.com/UuPH4PS.jpg)
 
  - Now simply wait for the synchronization process to finish.
 
@@ -470,6 +470,7 @@ When running the wallet for the 1st time, either after starting the VM or reboot
  - For the GUI Wallet mode use the following chain of commands:
 
         export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib" && bitcanna-qt -dbcache=50
+               
 ## Disclosure
 
 Keep in mind that these guides are a community made project, and there for no member of the BitCanna Team, and/or the author, are responsible for any funds lost by its usage. 
@@ -488,7 +489,7 @@ If you need or want to buy BCNA you can do it using the links below:
 
 Any improvements or suggestions to be added feel free to do it either through here or by telegram using the link -> https://t.me/Johnny_X89
  
- ## Support & and Donating
+ ## Support and Donating
  
 If you found these guides useful and you fell like it feel free to donate any tips to support and improve it:
 
