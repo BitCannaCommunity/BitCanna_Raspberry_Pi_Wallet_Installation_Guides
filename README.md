@@ -20,7 +20,7 @@ These are 2 Guides that were created to help those among the BitCanna Community 
 
  - Raspberry Pi 3B+  
  - SD Card with 32GB (minimum)
- - PC (either for remote controll the RPi or for the VM installation Guide) 
+ - PC (either for remote control the RPi or for the VM installation Guide) 
  
  ## Important 
 
