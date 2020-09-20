@@ -31,7 +31,6 @@ varys(){
 RPIGUIDE="NO"
 DATENOW=$(date +"%Y%m%d%H%M%S")
 RPISTEPS="0"
-readonly temp_counter="30"
 readonly BCNAREP="https://github.com/BitCannaGlobal/BCNA.git"
 readonly GETLASTBOOT=$(curl --silent "https://api.github.com/repos/BitCannaCommunity/Bootstrap/releases/latest" | grep -Po '"name": "\K.*?(?=.zip)')
 readonly BCNABOOT=$(curl --silent "https://api.github.com/repos/BitCannaCommunity/Bootstrap/releases/latest" | grep 'browser_' | cut -d\" -f4)
@@ -178,9 +177,16 @@ bcnadown(){
 echo -e "${grey}--> ${bkwhite}Lets Download and Extract the Bitcanna Wallet from GitHub\n${bkwhite}"
 sleep 0.5
 [ -d "$BCNACONF" ] && cp -f -r --preserve "$BCNACONF" "$BCNACONF.${DATENOW}"
-[ ! -e "$BCNAPKG" ] && echo -e "${grey}--> ${bkwhite}Downloading $BCNAPKG Repository ${grey}...." && git clone "$BCNAREP" && sudo chmod -R a+rwx "$BCNAPKG" || { echo "Repository Already Exist... please, manually delete it first!" ; exit 1 ; }
-cd "$BCNAPKG"
-sed -i '/#include "util.h"/a#include <atomic>' "$BCNAHOME"/"$BCNAPKG"/src/net.h
+if [[ ! -e "$BCNAPKG" ]] ; then 
+ echo -e "${grey}--> ${bkwhite}Downloading $BCNAPKG Repository ${grey}...."
+ git clone "$BCNAREP"
+ sudo chmod -R a+rwx "$BCNADIR"
+else
+ echo "Repository Already Exist... please, manually delete it first!"
+ exit 1
+fi
+cd "$BCNADIR" || exit 1
+sed -i '/#include "util.h"/a#include <atomic>' "$BCNAHOME"/"$BCNADIR"/src/net.h
 ./autogen.sh && ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --disable-tests --with-miniupnpc --enable-upnp-default
 make -j4 && sudo make install
 cd || exit
@@ -208,6 +214,7 @@ touch "$BCNACONF"/bitcanna.conf
 RPCPWD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w22 | head -n1)
 echo "rpcuser=bitcanna$USER
 rpcpassword=$RPCPWD
+port=$BCNAPORT
 listen=1
 server=1
 daemon=1
@@ -225,7 +232,7 @@ RPC User:    bitcanna$USER
 RPC Pass:    $RPCPWD
 EOF
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib"
-echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib"' >> .bashrc
+echo "export LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH:/usr/local/BerkeleyDB.4.8/lib\"" >> .bashrc
 }
 walletposconf(){
 WLTADRS=$("$BCNACLI" getaccountaddress wallet.dat)
