@@ -38,7 +38,7 @@ readonly BCNABOOT=$(curl --silent "https://api.github.com/repos/BitCannaCommunit
 readonly BCNAPKG="BCNA"
 readonly BCNAHOME="$HOME"
 readonly BCNACONF=".bitcanna"
-readonly BCNADIR="$BCNAPKG"
+readonly BCNADIR="BCNA"
 readonly BCNAPORT="12888"
 readonly BCNACLI="bitcanna-cli"
 readonly BCNAD="bitcannad"
@@ -54,35 +54,27 @@ preraspberry(){
 if [ "$RPIGUIDE" != "OK" ]; then
  echo "You NOT HAVE DONE this STEP before running This Script !!!"
  echo "https://github.com/BitCannaCommunity/BitCanna_Raspberry_Pi_Wallet_Installation_Guides/blob/master/RPI_GUIDE.md#installation-of-the-full-node-wallet-on-raspberry-pi"
- echo "Run: sudo raspi-config"
- echo "When FINISH that step, CHANGE variable -> RPIGUIDE=\"OK\" <- on this Script"
+ echo && echo "When FINISH that step, CHANGE variable -> RPIGUIDE=\"OK\" on this Script"
  read -n 1 -s -r -p "$(echo -e "${grey}--> ${green}Press any key to continue ${grey}... \n${bkwhite}")"
  exit 0
 fi
 if [ "$RPISTEPS" -eq "0" ]; then
- echo -e "${grey}--> ${green}RPi Pre-configuration${grey}... ${yellow}420 Time \n${bkwhite}"
+  echo -e "${grey}--> ${green}RPi Pre-configuration${grey}... ${yellow}420 Time \n${bkwhite}"
  sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/' /etc/dphys-swapfile
  sudo dphys-swapfile setup && sudo dphys-swapfile swapon && sudo chmod -R a+rwx ./
- echo -e "${grey}--> ${green}Building the RPi Kernel ${grey}... ${yellow}420 Time \n${bkwhite}"
- sudo apt-get install git bc bison flex libssl-dev make -y
- git clone --depth=1 https://github.com/raspberrypi/linux && sudo chmod -R a+rwx linux/
- cd linux && KERNEL=kernel7 && make bcm2709_defconfig
- make -j4 zImage modules dtbs && sudo make modules_install && sudo cp arch/arm/boot/dts/*.dtb /boot/ && sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/ && sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/ && sudo cp arch/arm/boot/zImage /boot/$KERNEL.img
- cd || exit
- sudo apt-get install apt apt-utils arandr base-files bind9-host bluetooth bluez bluez-firmware ca-certificates chromium-common chromium-sandbox curl dbus dbus-user-session dbus-x11 distro-info-data dphys-swapfile exim4-base exim4-config exim4-daemon-light ffmpeg firmware-amd-graphics firmware-atheros firmware-bnx2 firmware-bnx2x firmware-brcm80211 firmware-cavium firmware-intel-sound firmware-intelwimax firmware-ipw2x00 firmware-ivtv firmware-iwlwifi firmware-libertas firmware-linux firmware-linux-nonfree firmware-misc-nonfree firmware-myricom firmware-netronome firmware-netxen firmware-qcom-media firmware-qlogic firmware-realtek firmware-samsung firmware-siano firmware-ti-connectivity fuse gir1.2-pango-1.0 git git-man glib-networking glib-networking-common glib-networking-services grub-common grub2-common gtk2-engines-clearlookspix iputils-ping libapt-inst2.0 libapt-pkg5.0 libavcodec58 libavdevice58 libavfilter7 libavformat58 libavresample4 libavutil56 libbind9-161 libbluetooth3 libcups2 libcupsimage2 libcurl3-gnutls libcurl4 libdbus-1-3 libdns-export1104 libdns1104 libexif12 libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libfuse2 libgnutls-dane0 libgnutls30 libicu63 libinput-bin libinput10 libisc-export1100 libisc1100 libisccc161 libisccfg163 libjavascriptcoregtk-4.0-18 libjson-c3 libldap-2.4-2 libldap-common liblirc-client0 liblwres161 libmailutils5 libmariadb3 libnss-myhostname libnss3 libntlm0 libobrender32v5 libobt2v5 libopenmpt-modplug1 libopenmpt0 libpam-chksshpwd libpam-modules libpam-modules-bin libpam-runtime libpam-systemd libpam0g libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libpangoxft-1.0-0 libperl5.28 libpostproc55 libpython3.7 libpython3.7-dev libpython3.7-minimal libpython3.7-stdlib libssh-gcrypt-4 libssl1.1 libswresample3 libswscale5 libsystemd0 libtag1v5 libtag1v5-vanilla libudev1 libunbound8 libunwind8 libvlc-bin libvlc5 libvlccore9 libwebkit2gtk-4.0-37 linux-libc-dev lxinput lxpanel lxpanel-data lxplug-bluetooth lxplug-cputemp lxplug-ejecter lxplug-network lxplug-ptbatt lxplug-volume lxterminal mailutils mailutils-common mariadb-common nfs-common obconf openbox openssl pcmanfm perl perl-base perl-modules-5.28 pi-greeter pi-package pi-package-data pi-package-session piclone pipanel piserver pishutdown piwiz pprompt python3-pgzero python3.7 python3.7-dev python3.7-minimal python3.7-venv qemu-user-static raspberrypi-sys-mods raspberrypi-ui-mods rc-gui rp-prefapps rpd-plym-splash rpi-chromium-mods rpi-update rpiboot systemd systemd-sysv tzdata udev vlc vlc-bin vlc-data vlc-l10n vlc-plugin-base vlc-plugin-notify vlc-plugin-qt vlc-plugin-samba vlc-plugin-skins2 vlc-plugin-video-output vlc-plugin-video-splitter vlc-plugin-visualization wpasupplicant xserver-common xserver-xorg-core -y
- sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt-get clean
- sed -i '33s/RPISTEPS="0"/RPISTEPS="1"/' BCNA-RPI.sh
+  sudo apt-get update && sudo apt-get full-upgrade -y && sudo apt-get clean
+ sed -i '33s/RPISTEPS="0"/RPISTEPS="1"/' BCNA-VM.sh
  cat <<EOF >> "$BCNAHOME"/.bashrc
 ### RPIConfig ###
-if [ -f BCNA-RPI.sh ]; then
- . BCNA-RPI.sh
+if [ -f BCNA-VM.sh ]; then
+ . BCNA-VM.sh 2> error1.txt 1> output1.txt
 fi
 ### RPIConfig ###
 EOF
  sudo reboot now
 elif [ "$RPISTEPS" -eq "1" ]; then
  sed -i '/RPIConfig/,/RPIConfig/d' "$BCNAHOME"/.bashrc
- sed -i '33s/RPISTEPS="1"/RPISTEPS="2"/' BCNA-RPI.sh
+ sed -i '33s/RPISTEPS="1"/RPISTEPS="2"/' "$BCNAHOME"/BCNA-VM.sh
  echo "Install Boost Libraries v.1.57"
  wget https://sourceforge.net/projects/boost/files/boost/1.57.0/boost_1_57_0.tar.gz && tar -xzvf boost_1_57_0.tar.gz && rm boost_1_57_0.tar.gz && sudo chmod -R a+rwx boost_1_57_0/ && cd boost_1_57_0/ || exit
  sudo ./bootstrap.sh && sudo ./b2 install
@@ -429,9 +421,9 @@ if [[ "$EUID" -eq 0 ]]; then
  echo -e "${grey}--> ${red}You are root ${grey}!!\n   ${yellow}Just NOT USE ROOT user ${grey}!!!\n      ${red}Exiting${grey}...${endc}" && sleep 0.5 && exit 1
 else
  case $(uname -m) in
-  i386|i686) echo -e "${grey}--> ${red}Architecture System $architecture NOT VALID - USE arm64 ${grey}!!!\n${red}Exiting${grey}...${endc}" && sleep 1 && exit 1 ;;
-  x86_64) echo -e "${grey}--> ${yellow}Please${grey}, ${bkwhite}Get the Script dedicated to Linux x64 system ${grey}!!!${bkwhite}" && sleep 1 && exit 1 ;;
-  arm) dpkg --print-architecture | grep -q "arm64" && intro && read -n 1 -s -r -p "$(echo -e "${grey}--> ${green}Press any key to continue ${grey}... \n${bkwhite}")" && preraspberry || architecture="arm" && echo -e "${grey}--> ${red}Architecture ARM INCOMPATIBLE - USE an ARM64 arch ${grey}!!!\n${red}Exiting${grey}...${endc}" && sleep 1 && exit 1 ;;
+  i386|i686) architecture="386" && echo -e "${grey}--> ${red}Architecture System $architecture NOT VALID - USE arm64 ${grey}!!!\n${red}Exiting${grey}...${endc}" && sleep 1 && exit 1 ;;
+  arm) echo -e "${grey}--> ${yellow}Please${grey}, ${bkwhite}Get the Script dedicated to Linux (Ubuntu Debian) ${grey}!!!${bkwhite}" && sleep 1 && exit 1 ;;
+  x86_64) intro && read -n 1 -s -r -p "$(echo -e "${grey}--> ${green}Press any key to continue ${grey}... \n${bkwhite}")" && preraspberry ;;
   *) echo -e "${grey}--> ${red}Operating System Unknown ${grey}!!!\n${red}Exiting${grey}...${endc}" && sleep 1 && exit 1 ;;
  esac
  MYSUDOER=$(sudo grep '^$USER' /etc/sudoers)
