@@ -350,7 +350,7 @@ Now comes the fun part where you will do the magic trick of compiling and instal
 
  - Download and "install" bootstrap to speed up initial synchronization of the wallet with:
 
-        cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v4/Bootstrap.18-08-2020.zip && unzip Bootstrap.18-08-2020.zip && rm Bootstrap.18-08-2020.zip && sudo chmod -R a+rwx /home/pi/.bitcanna/
+        cd .bitcanna/ && wget https://github.com/BitCannaCommunity/Bootstrap/releases/download/v5/Bootstrap.05-10-2020.zip && unzip Bootstrap.05-10-2020.zip && rm Bootstrap.05-10-2020.zip && sudo chmod -R a+rwx /home/pi/.bitcanna/
 
  - Once it is finished exit the folder with:
 
